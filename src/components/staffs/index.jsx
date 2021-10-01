@@ -70,16 +70,13 @@ export default function Staffs() {
   };
 
   const pageCount = staffs ? Math.ceil(staffs.length / pageSize) : 0;
-  if (pageCount === 1) return null;
-  const pages = _.range(1, pageCount + 1);
+  // if (pageCount === 1) return null;
 
   const pagination = (pageNo) => {
-    // console.log(pageNo.selected)
-    // let currentPage = pageNo.selected + 1
-    // setCurrentPage(currentPage)
+  
     const startIndex = pageNo.selected * pageSize;
     const paginatedStaffs = _(staffs).slice(startIndex).take(pageSize).value();
-    console.log(staffs);
+    // console.log(staffs);
     setPaginatedStaffs(paginatedStaffs);
   };
   return (
@@ -184,6 +181,7 @@ export default function Staffs() {
                         .toLowerCase()
                         .includes(searchTerm.toLowerCase())
                     ) {
+                      // setPaginatedStaffs(staff)
                       return staff;
                     } else return null;
                   })
@@ -242,21 +240,3 @@ export default function Staffs() {
   );
 }
 
-// eslint-disable-next-line no-lone-blocks
-{
-}
-
-// eslint-disable-next-line no-lone-blocks
-{
-  /* <ul className="pagination">
-          {pages.map((page) => (
-            <li key={page}
-            className={page === currentPage ? "page-item active" : "page-item"}
-            >
-              <p className="page-link"
-                onClick={() => pagination(page)}
-              >{page}</p>
-            </li>
-          ))}
-        </ul> */
-}
