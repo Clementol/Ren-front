@@ -1,7 +1,12 @@
 import React from "react";
 import { useQuery } from "react-query";
 import axios from "../../helpers/axios";
-import { VscChevronLeft, VscChevronRight, VscEdit, VscTrash } from "react-icons/vsc";
+import {
+  VscChevronLeft,
+  VscChevronRight,
+  VscEdit,
+  VscTrash,
+} from "react-icons/vsc";
 import { FiUsers } from "react-icons/fi";
 
 import { Alert, CircularProgress } from "@mui/material";
@@ -24,6 +29,7 @@ export default function Staffs() {
   // const [currentPage, setCurrentPage] = React.useState(1);
 
   let pageSize = 10;
+  let noOfSeachedStaff = [];
 
   // Add Modal
   const handleAddClose = () => setShowAddModal(false);
@@ -73,11 +79,14 @@ export default function Staffs() {
   // if (pageCount === 1) return null;
 
   const pagination = (pageNo) => {
-  
     const startIndex = pageNo.selected * pageSize;
-    const paginatedStaffs = _(staffs).slice(startIndex, startIndex + pageSize).take(pageSize).value();
+    const paginatedStaffs = _(staffs)
+      .slice(startIndex, startIndex + pageSize)
+      .take(pageSize)
+      .value();
     // console.log(staffs);
     setPaginatedStaffs(paginatedStaffs);
+    
   };
   return (
     <>
@@ -148,7 +157,6 @@ export default function Staffs() {
           <table className="table table-striped mydatatable">
             <thead>
               <tr>
-               
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Position</th>
@@ -159,14 +167,35 @@ export default function Staffs() {
             <tbody>
               {res.isLoading ? (
                 <>
-                <span>
-                   <CircularProgress />
-                 </span>
+                  <span>
+                    <CircularProgress />
+                  </span>
                 </>
-                  
-              ) : paginatedStaffs ? (
+              ) : paginatedStaffs && searchTerm === "" ? (
                 // empty staff here
-                paginatedStaffs //search staff
+                paginatedStaffs 
+                  .map((staff, index) => (
+                    <tr key={index}>
+                      <td>{staff.name}</td>
+                      <td>{staff.email}</td>
+                      <td>{staff.position}</td>
+                      <td>{staff.department}</td>
+                      <td>
+                        <VscEdit
+                          key={staff.id}
+                          onClick={() => updateStaffModal(staff)}
+                          style={{ cursor: "pointer" }}
+                        />{" "}
+                        |{" "}
+                        <VscTrash
+                          onClick={() => deleteStaffModal(staff)}
+                          style={{ cursor: "pointer" }}
+                        />{" "}
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                staffs //search all staff
                   .filter((staff) => {
                     if (searchTerm === "") {
                       return staff;
@@ -181,7 +210,8 @@ export default function Staffs() {
                         .toLowerCase()
                         .includes(searchTerm.toLowerCase())
                     ) {
-                      // setPaginatedStaffs(staff)
+                      noOfSeachedStaff.push(staff)
+                      
                       return staff;
                     } else return null;
                   })
@@ -206,12 +236,23 @@ export default function Staffs() {
                       </td>
                     </tr>
                   ))
-              ) : null}
+              )}
             </tbody>
           </table>
         </div>
-        <nav style={{ zIndex: -1, justifyContent: 'space-evenly' }} className="d-flex" >
-        {paginatedStaffs.length > 0 ? <p>Showing {paginatedStaffs.length} of {staffs.length} entries</p> : null}
+        <nav
+          style={{ zIndex: -1, justifyContent: "space-evenly" }}
+          className="d-flex"
+        >
+          {paginatedStaffs.length > 0 ? (
+            <p>
+              Showing{" "}
+              {noOfSeachedStaff.length > 0
+                ? noOfSeachedStaff.length
+                : paginatedStaffs.length}{" "}
+              of {staffs.length} entries
+            </p>
+          ) : null}
 
           <Paginate
             previousLabel={<VscChevronLeft />}
@@ -231,12 +272,9 @@ export default function Staffs() {
             breakClassName="page-item"
             breakLinkClassName="page-link"
             activeClassName="active"
-            
           />
         </nav>
-
       </div>
     </>
   );
 }
-
