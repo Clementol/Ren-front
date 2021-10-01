@@ -1,0 +1,445 @@
+.billboard {
+    background-image: no-repeat;
+    padding-bottom: 40px;
+    min-height: 80vh;
+    max-height: 100vh;
+    background: black;
+    overflow: hidden;
+    background: #c33764; /* fallback colour. Make sure this is just one solid colour. */
+    background: -webkit-linear-gradient(
+        rgba(29, 38, 113, 0.8),
+        rgba(195, 55, 100, 0.8)
+      ),
+      url("../../static/images/coopb.jpg");
+    background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)),
+      url("../../static/images/coopb.jpg"); /* The least supported option. */
+  }
+  
+  .brand {
+    left: 0;
+    top: 0;
+    padding: 3px 12px;
+  }
+  .container {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 200px;
+    justify-content: space-between;
+    height: 100vh;
+  }
+  .billboardTextBox {
+    margin-left: 2rem;
+    margin-top: 0.65rem;
+    color: #fff;
+  }
+  .billboardTextBox > h1 {
+    font-size: 45px;
+    line-height: 1.2em;
+    font-weight: 800;
+    width: 350px;
+    text-align: starts;
+  }
+  .billboardTextBox > p {
+    font-size: 20px;
+    margin-top: 0;
+    font-weight: 400;
+    position: relative;
+  }
+  
+  .dashb > img {
+    right: -150px;
+    position: relative;
+    border-radius: 13px;
+    top: 52px;
+    transform: rotate(15deg);
+    overflow: visible;
+  }
+  
+  .main {
+    margin-top: 1rem;
+    justify-content: center;
+    display: flex;
+    background: #c33764;
+  }
+  
+  .cards {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+  }
+  
+  .cards .card {
+    position: relative;
+    max-width: 300px;
+    height: 180px;
+    background: #fff;
+    margin: 30px 10px;
+    border-radius: 3px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 52px rgba(0, 0, 0, 0.5);
+    transition: 0.5s ease-in-out;
+  }
+  
+  .cards .card .cardImage {
+    position: relative;
+    width: 190px;
+    justify-content: center;
+    height: 300px;
+    top: -60px;
+    left: 40px;
+    z-index: 1;
+    box-shadow: 0 5px 42px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .cards .card .cardImage img {
+    position: relative;
+    max-width: 50%;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .cards .card .cardText {
+    position: relative;
+    margin-top: -70px;
+    padding: 10px 15px;
+    text-align: center;
+    color: #111;
+    font-size: 20px;
+  }
+  .cards .card .cardText p {
+    margin-top: 40px;
+  }
+  .getStartedButton {
+    display: flex;
+    position: relative;
+    margin: 2rem 0 7rem 0;
+    color: #fff;
+    position: relative;
+    background: #e65381 !important;
+    border-radius: 30px;
+    text-align: center;
+    padding: 11px;
+    font-size: 1.205em;
+    border-color: transparent;
+    font-weight: 400;
+    box-shadow: 0 1px 15px 9px rgba(0, 0, 0, .3);
+    width: 170px;
+  }
+  .getStartedButton span {
+    margin-left: 14px;
+    display: inline-block;
+    left: -10px;
+    color: #fff;
+    /* top: 1px; */
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+  }
+  .getStartedButton:hover {
+    background: #ca2458;;
+  }
+  
+  .footer {
+    position: sticky;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    border-top: 1px solid #e6cdcd;
+    display: flex;
+    background-color: #aa2c2c;
+    color: #fff;
+    bottom: 0;
+  }
+  
+  
+  @media screen and (min-width: 321px ) and (max-width: 768px) {
+    
+    .billboard {
+      background-image: no-repeat;
+      max-height: 100h;
+      min-height: 90vh;
+      padding-bottom: 40px;
+      background: black;
+      overflow: hidden;
+      background: #c33764; /* fallback colour. Make sure this is just one solid colour. */
+      background: -webkit-linear-gradient(
+          rgba(29, 38, 113, 0.8),
+          rgba(195, 55, 100, 0.8)
+        ),
+        url("../../static/images/coopb.jpg");
+      background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)),
+        url("../../static/images/coopb.jpg"); /* The least supported option. */
+    }
+  
+    .brand {
+      left: 0;
+      top: 0;
+      padding: 3px 12px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      width: 100%;
+      /* justify-content: space-between; */
+      height: 40vh;
+    }
+    .billboardTextBox {
+      margin: 0.65rem 2rem;
+      color: #fff;
+    }
+    .billboardTextBox > h1 {
+      font-size: 45px;
+      line-height: 1.2em;
+      font-weight: 800;
+      width: 250px;
+      text-align: starts;
+    }
+    .billboardTextBox > p {
+      font-size: 20px;
+      margin-top: 0;
+      font-weight: 400;
+      position: relative;
+    }
+  
+    .dashb > img {
+      right: -20px;
+      position: relative;
+      border-radius: 13px;
+      top: 152px;
+      transform: rotate(15deg);
+      overflow: visible;
+    }
+  
+    .cards {
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+    }
+    
+    .cards .card {
+      position: relative;
+      max-width: 300px;
+      height: 180px;
+      background: #fff;
+      margin: 30px 10px;
+      border-radius: 3px;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 5px 52px rgba(0, 0, 0, 0.5);
+      transition: 0.5s ease-in-out;
+    }
+    
+    .cards .card .cardImage {
+      position: relative;
+      width: 190px;
+      justify-content: center;
+      height: 300px;
+      top: -60px;
+      left: 30px;
+      z-index: 1;
+      box-shadow: 0 5px 42px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    
+    .cards .card .cardImage img {
+      position: relative;
+      max-width: 50%;
+      border-radius: 4px;
+      text-align: center;
+    }
+    
+    .cards .card .cardText {
+      position: relative;
+      margin-top: -70px;
+      padding: 10px 15px;
+      text-align: center;
+      color: #111;
+      font-size: 20px;
+    }
+    .cards .card .cardText p {
+      margin-top: 40px;
+    }
+    
+  }
+  
+  @media screen and (width: 320px ) {
+    .cards {
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+    }
+    
+    .cards .card {
+      position: relative;
+      max-width: 300px;
+      height: 200px;
+      background: #fff;
+      margin: 30px 2px;
+      border-radius: 3px;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 5px 52px rgba(0, 0, 0, 0.5);
+      transition: 0.5s ease-in-out;
+    }
+    
+    .cards .card .cardImage {
+      position: relative;
+      width: 190px;
+      justify-content: center;
+      height: 300px;
+      top: -60px;
+      left: 14px;
+      z-index: 1;
+      box-shadow: 0 5px 42px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    
+    .cards .card .cardImage img {
+      position: relative;
+      max-width: 50%;
+      border-radius: 4px;
+      text-align: center;
+    }
+    
+    .cards .card .cardText {
+      position: relative;
+      margin-top: -70px;
+      padding: 10px 15px;
+      text-align: center;
+      color: #111;
+      font-size: 20px;
+    }
+    .cards .card .cardText p {
+      margin-top: 40px;
+      padding-bottom: 30px;
+    }
+      .footer {
+    position: sticky;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    border-top: 1px solid #e6cdcd;
+    display: flex;
+    background-color: #aa2c2c;
+    color: #fff;
+    bottom: 0;
+  }
+  } 
+  
+  
+  @media screen and (width: 280px) {
+    .billboard {
+      overflow: visible;
+      position: relative;
+      /* transform: translate(0, -10%); */
+      height: 450vh;
+      width: 100%;
+      background-image: no-repeat;
+      background: black;
+      overflow: hidden;
+      background: #c33764; /* fallback colour. Make sure this is just one solid colour. */
+      background: -webkit-linear-gradient(
+          rgba(29, 38, 113, 0.8),
+          rgba(195, 55, 100, 0.8)
+        ),
+        url("../../static/images/coopb.jpg");
+      background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)),
+        url("../../static/images/coopb.jpg"); /* The least supported option. */
+    }
+  
+    .billboardTextBox {
+      height: 80vh;
+      margin-left: 2rem;
+      margin-right: 1rem;
+      margin-top: 0.65rem;
+      color: #fff;
+      /* width: 100%; */
+    }
+    .billboardTextBox > h1 {
+      font-size: 45px;
+      line-height: 1.1em;
+      font-weight: 800;
+      width: 5px;
+      text-align: starts;
+    }
+  
+    .billboardTextBox > p {
+      font-size: 20px;
+      margin-top: 0;
+      font-weight: 400;
+      position: relative;
+    }
+    
+    
+    .cards {
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+    }
+    
+    .cards .card {
+      position: relative;
+      max-width: 300px;
+      height: 270px;
+      background: #fff;
+      margin: 30px 10px;
+      border-radius: 3px;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 5px 52px rgba(0, 0, 0, 0.5);
+      transition: 0.5s ease-in-out;
+    }
+    
+    .cards .card .cardImage {
+      position: relative;
+      width: 150px;
+      justify-content: center;
+      height: 300px;
+      top: -60px;
+      left: 12px;
+      z-index: 1;
+      box-shadow: 0 5px 42px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    
+    .cards .card .cardImage img {
+      position: relative;
+      max-width: 90%;
+      border-radius: 4px;
+      justify-content: center;
+    }
+    
+    .cards .card .cardText {
+      position: relative;
+      margin-top: -70px;
+      padding: 10px 15px;
+      text-align: center;
+      color: #111;
+      font-size: 20px;
+    }
+    .cards .card .cardText p {
+      margin-top: 40px;
+    }
+  
+} 
+  
