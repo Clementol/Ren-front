@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import Footer from "../../container/Footer";
 import logo from "../../static/images/logo.jpg";
+import finc from "../../static/images/finc.png";
+import aud from "../../static/images/aud.png";
+
 import "./style.css";
 
 export default function Home() {
@@ -19,13 +22,13 @@ export default function Home() {
         <div className="billboardTextBox">
           <h1 className="title">Save Your Future by Saving Today</h1>
           <p>
-            An Online Platform that Help Members Of Cooperative Societies To
-            Have A Saving Culture.
+            We Help Organizations to Move there Businesses to an Online Platform
+            to Achieve More.
           </p>
           <div className="getStartedButton">
             <Link to="/all-staffs">
               <span>
-                Get Started &nbsp;&nbsp;
+                Our Staffs &nbsp;&nbsp;
                 <BsArrowRight />
               </span>
             </Link>
@@ -38,18 +41,18 @@ export default function Home() {
           <div className="cards">
             <div className="card">
               <div className="cardImage">
-                <img src="/contrib.svg" alt="img" />
+                <img src={finc} alt="img" />
               </div>
               <div className="cardText">
-                <p>Make Contributions Easier at Specified Time</p>
+                <p>To Help Organizations to Achieve More Financially</p>
               </div>
             </div>
             <div className="card">
               <div className="cardImage">
-                <img src="/give.svg" alt="img" />
+                <img src={aud} alt="img" />
               </div>
               <div className="cardText">
-                <p>Make Access to Loan Easier</p>
+                <p>To Help Organizations to Reach more Customers</p>
               </div>
             </div>
           </div>
