@@ -108,7 +108,7 @@
       width: 100%;
       display: table;
       left: 0;
-      border-bottom: 1.6px dotted #272626;
+      border-bottom: 1px dotted #272626;
     }
     
     .nav-links ul li a {
