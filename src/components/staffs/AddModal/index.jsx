@@ -25,6 +25,11 @@ const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
       },
       onSuccess: (data) => {
         setSuccMsg(true);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPosition("");
+        setDepartment("");
         queryClent.invalidateQueries(["staffs"]);
       },
     }
