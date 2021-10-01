@@ -23,7 +23,7 @@ export default function Staffs() {
   const [paginatedStaffs, setPaginatedStaffs] = React.useState([]);
   // const [currentPage, setCurrentPage] = React.useState(1);
 
-  let pageSize = staffs.length - 1;
+  let pageSize = 10;
 
   // Add Modal
   const handleAddClose = () => setShowAddModal(false);
@@ -75,7 +75,7 @@ export default function Staffs() {
   const pagination = (pageNo) => {
   
     const startIndex = pageNo.selected * pageSize;
-    const paginatedStaffs = _(staffs).slice(startIndex).take(pageSize).value();
+    const paginatedStaffs = _(staffs).slice(startIndex, startIndex + pageSize).take(pageSize).value();
     // console.log(staffs);
     setPaginatedStaffs(paginatedStaffs);
   };
