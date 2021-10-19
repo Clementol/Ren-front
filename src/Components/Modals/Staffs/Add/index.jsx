@@ -1,57 +1,55 @@
 import { Alert } from "@mui/material";
 import React from "react";
-// import { useForm } from "react-hook-form";
 import { Form, Modal, Row, Col, Button } from "react-bootstrap";
-import { useMutation, useQueryClient } from "react-query";
-import axios from "../../../helpers/axios";
-import { positions, departments } from "../data";
+import { useQueryClient, useMutation } from "react-query";
+import axios from "../../../../Helpers/axios";
+import { positions, departments } from "../../../../Data/Staff";
 
-const EditStaffModal = ({ show, handleClose, staff, setShowEditModal }) => {
+const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [position, setPosition] = React.useState("");
   const [department, setDepartment] = React.useState("");
-  const [succMsg, setSuccMsg] = React.useState(false);
   const [errMsg, setErrMsg] = React.useState("");
+  const [succMsg, setSuccMsg] = React.useState(false);
 
   const queryClent = useQueryClient();
-
-  const mutateUpdateStaff = useMutation(
+  const mutateAddStaff = useMutation(
     async (data) => {
-      const { id, lastName, firstName, email, position, department } = data;
-      const userData = { lastName, firstName, email, position, department };
-      await axios.put(`/update/${id}`, userData);
+      await axios.post(`/add`, data);
     },
     {
       onError: (e) => {
-        // console.log(e);
         setErrMsg(e.response.data.error);
       },
-      onSuccess: () => {
-        queryClent.invalidateQueries(["staffs"]);
+      onSuccess: (data) => {
         setSuccMsg(true);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPosition("");
+        setDepartment("");
+        queryClent.invalidateQueries(["staffs"]);
       },
     }
   );
 
-  const updateStaff = (e) => {
+  const addStaff = (e) => {
     e.preventDefault();
     setErrMsg("");
     setSuccMsg(false);
     let data = {
-      id: staff.id,
-      lastName,
       firstName,
+      lastName,
       email,
       position,
       department,
     };
-
-    mutateUpdateStaff.mutate(data);
+    mutateAddStaff.mutate(data);
   };
   const cancel = () => {
-    setShowEditModal(false);
+    setShowAddModal(false);
     setErrMsg("");
     setSuccMsg(false);
     setFirstName("");
@@ -60,22 +58,16 @@ const EditStaffModal = ({ show, handleClose, staff, setShowEditModal }) => {
     setPosition("");
     setDepartment("");
   };
-  // console.log(staff)
-
-  if (!staff) {
-    return null;
-  }
   return (
     <Modal show={show} onHide={cancel}>
-      <Form onSubmit={updateStaff}>
+      <form onSubmit={addStaff}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Staff</Modal.Title>
+          <Modal.Title>Add Staff</Modal.Title>
         </Modal.Header>
-        {succMsg ? <Alert severity="success">Updated</Alert> : null}
-
+        {succMsg ? <Alert severity="success">Added</Alert> : null}
         {errMsg ? <Alert severity="error">{errMsg}</Alert> : null}
         <Modal.Body>
-          <Row className="mb-11" style={{ marginBottom: "9px" }}>
+          <Row className="mb-11">
             <Col md={6}>
               <Form.Group className="mb-3" controlId="formBasicfirstName">
                 <Form.Label>First Name</Form.Label>
@@ -84,7 +76,7 @@ const EditStaffModal = ({ show, handleClose, staff, setShowEditModal }) => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   type="text"
-                  placeholder={staff.firstName}
+                  placeholder="First Name"
                 />
               </Form.Group>
             </Col>
@@ -96,12 +88,12 @@ const EditStaffModal = ({ show, handleClose, staff, setShowEditModal }) => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   type="text"
-                  placeholder={staff.lastName}
+                  placeholder="Last Name"
                 />
               </Form.Group>
             </Col>
           </Row>
-          <Row className="mb-11" style={{ marginBottom: "9px" }}>
+          <Row className="mb-11">
             <Col md={11}>
               <Form.Group className="mb-3" controlId="formBasicemail">
                 <Form.Label>Email</Form.Label>
@@ -110,7 +102,7 @@ const EditStaffModal = ({ show, handleClose, staff, setShowEditModal }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   type="text"
-                  placeholder={staff.email}
+                  placeholder="Email"
                 />
               </Form.Group>
             </Col>
@@ -153,17 +145,17 @@ const EditStaffModal = ({ show, handleClose, staff, setShowEditModal }) => {
             Cancel
           </Button>
           <Button
-            type="submit"
-            disabled={mutateUpdateStaff.isLoading}
+            disabled={mutateAddStaff.isLoading}
             variant="primary"
-            onClick={updateStaff}
+            type="submit"
+            // onClick={addStaff}
           >
-            {mutateUpdateStaff.isLoading ? "Updating..." : "Update"}
+            {mutateAddStaff.isLoading ? "Adding..." : "Add"}
           </Button>
         </Modal.Footer>
-      </Form>
+      </form>
     </Modal>
   );
 };
 
-export default EditStaffModal;
+export default AddStaffModal;

@@ -1,10 +1,10 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Modal, Button } from "react-bootstrap";
-import axios from "../../../helpers/axios";
+import axios from "../../../../Helpers/axios";
 import { Alert } from "@mui/material";
 
-const RemoveStaffModal = ({ show, handleClose, staff, setShowDeleteModal }) => {
+const DeleteStaffModal = ({ show, handleClose, staff, setShowDeleteModal }) => {
   const [errMsg, setErrMsg] = React.useState(false);
   const [succMsg, setSuccMsg] = React.useState(false);
 
@@ -40,6 +40,7 @@ const RemoveStaffModal = ({ show, handleClose, staff, setShowDeleteModal }) => {
   if (!staff) {
     return null;
   }
+  // if (mutateDeleteStaff.error)
   return (
     <>
       <Modal show={show} onHide={cancel}>
@@ -52,6 +53,8 @@ const RemoveStaffModal = ({ show, handleClose, staff, setShowDeleteModal }) => {
           <>
             <Modal.Body>
               {errMsg ? (
+                <Alert severity="error">{mutateDeleteStaff.error}</Alert>
+              ): mutateDeleteStaff.error ? (
                 <Alert severity="error">{mutateDeleteStaff.error}</Alert>
               ): null}
               <Alert severity="warning">
@@ -78,4 +81,4 @@ const RemoveStaffModal = ({ show, handleClose, staff, setShowDeleteModal }) => {
   );
 };
 
-export default RemoveStaffModal;
+export default DeleteStaffModal;

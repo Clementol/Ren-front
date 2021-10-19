@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../static/images/logo.jpg'
+import logo from '../../static/images/logo.jpg'
 
 // import Image from 'next/image'
 

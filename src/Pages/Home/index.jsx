@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { BsArrowRight } from "react-icons/bs";
-import Footer from "../../container/Footer";
+import Footer from "../../Components/Footer";
 import logo from "../../static/images/logo.jpg";
 import finc from "../../static/images/finc.png";
 import aud from "../../static/images/aud.png";
 
-import "./style.css";
+import "./Home.css";
 
 export default function Home() {
   return (
