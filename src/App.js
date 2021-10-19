@@ -2,8 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import StaffPage from "./Pages/StaffPage";
-import Home from "./Pages/Home";
+import {Staff, Home} from "./Pages";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -11,11 +10,11 @@ function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        // refetchOnWindowFocus: false,
+        refetchOnWindowFocus: false,
         // refetchOnmount: false,
         // refetchOnReconnect: true,
-        // retry: true,
-        // staleTime: 86400000,
+        retry: 2,
+      
       },
     },
   });
@@ -25,7 +24,7 @@ function App() {
       <BrowserRouter>
         <Switch >
           <Route path="/" strict exact component={Home} />
-          <Route path="/all-staffs" strict exact component={StaffPage} />
+          <Route path="/all-staffs" strict exact component={Staff} />
         </Switch>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

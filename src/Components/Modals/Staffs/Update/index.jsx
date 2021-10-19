@@ -1,80 +1,82 @@
 import { Alert } from "@mui/material";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { Form, Modal, Row, Col, Button } from "react-bootstrap";
-import { useQueryClient, useMutation } from "react-query";
-import axios from "../../../helpers/axios";
-import { positions, departments } from "../data";
+import { useMutation, useQueryClient } from "react-query";
+import axios from "../../../../Helpers/axios";
+import { positions, departments } from "../../../../Data/Staff";
 
-const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [position, setPosition] = React.useState("");
-  const [department, setDepartment] = React.useState("");
-  const [errMsg, setErrMsg] = React.useState("");
+const UpdateStaffModal = ({
+  show,
+  handleClose,
+  selectedStaff,
+  setShowEditModal,
+}) => {
+  
   const [succMsg, setSuccMsg] = React.useState(false);
+  const [errMsg, setErrMsg] = React.useState("");
+
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: selectedStaff,
+  });
 
   const queryClent = useQueryClient();
-  const mutateAddStaff = useMutation(
+
+  const mutateUpdateStaff = useMutation(
     async (data) => {
-      await axios.post(`/add`, data);
+      // const { id, lastName, firstName, email, position, department } = data;
+      // const userData = { lastName, firstName, email, position, department };
+      await axios.put(`/update/${data.id}`, data);
     },
     {
       onError: (e) => {
         setErrMsg(e.response.data.error);
       },
-      onSuccess: (data) => {
-        setSuccMsg(true);
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPosition("");
-        setDepartment("");
+      onSuccess: () => {
         queryClent.invalidateQueries(["staffs"]);
+        setSuccMsg(true);
       },
     }
   );
 
-  const addStaff = (e) => {
-    e.preventDefault();
+  React.useEffect(() => {
+    reset(selectedStaff);
+  }, [reset, selectedStaff]);
+
+  const updateStaff = (data) => {
     setErrMsg("");
     setSuccMsg(false);
-    let data = {
-      firstName,
-      lastName,
-      email,
-      position,
-      department,
-    };
-    mutateAddStaff.mutate(data);
+
+    mutateUpdateStaff.mutate(data);
+    // console.log(data);
   };
   const cancel = () => {
-    setShowAddModal(false);
+    setShowEditModal(false);
     setErrMsg("");
     setSuccMsg(false);
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPosition("");
-    setDepartment("");
+    reset(selectedStaff)
   };
+  
   return (
     <Modal show={show} onHide={cancel}>
-      <Form onSubmit={addStaff}>
+      <form onSubmit={handleSubmit(updateStaff)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Staff</Modal.Title>
+          <Modal.Title>Update Staff</Modal.Title>
         </Modal.Header>
-        {succMsg ? <Alert severity="success">Added</Alert> : null}
+        {succMsg ? <Alert severity="success">Updated</Alert> : null}
+
         {errMsg ? <Alert severity="error">{errMsg}</Alert> : null}
         <Modal.Body>
-          <Row className="mb-11">
+          <Row className="mb-11" style={{ marginBottom: "9px" }}>
             <Col md={6}>
               <Form.Group className="mb-3" controlId="formBasicfirstName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
                   required
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  // name="firstName"
+                  {...register("firstName")}
+                  // value={staff.firstName}
+                  // onChange={)}
                   type="text"
                   placeholder="First Name"
                 />
@@ -85,24 +87,26 @@ const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
                   required
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  {...register("lastName")}
+                  // value={lastName}
+                  // onChange={(e) => setLastName(e.target.value)}
                   type="text"
-                  placeholder="Last Name"
+                  // placeholder={staff.lastName}
                 />
               </Form.Group>
             </Col>
           </Row>
-          <Row className="mb-11">
+          <Row className="mb-11" style={{ marginBottom: "9px" }}>
             <Col md={11}>
               <Form.Group className="mb-3" controlId="formBasicemail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="text"
-                  placeholder="Email"
+                  {...register("email")}
+                  // value={email}
+                  // onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  // placeholder={staff.email}
                 />
               </Form.Group>
             </Col>
@@ -112,8 +116,9 @@ const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
               <Form.Label>Position</Form.Label>
               <Form.Select
                 required
-                value={position}
-                onChange={(e) => setPosition(e.target.value)}
+                {...register("position")}
+                // value={position}
+                // onChange={(e) => setPosition(e.target.value)}
               >
                 <option value="">Select option</option>
                 {positions.map((option) => (
@@ -127,8 +132,9 @@ const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
               <Form.Label>Department</Form.Label>
               <Form.Select
                 required
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
+                {...register("department")}
+                // value={department}
+                // onChange={(e) => setDepartment(e.target.value)}
               >
                 <option value="">Select option</option>
                 {departments.map((option) => (
@@ -145,17 +151,16 @@ const AddStaffModal = ({ show, handleClose, setShowAddModal }) => {
             Cancel
           </Button>
           <Button
-            disabled={mutateAddStaff.isLoading}
-            variant="primary"
             type="submit"
-            // onClick={addStaff}
+            disabled={mutateUpdateStaff.isLoading}
+            variant="primary"
           >
-            {mutateAddStaff.isLoading ? "Adding..." : "Add"}
+            {mutateUpdateStaff.isLoading ? "Updating..." : "Update"}
           </Button>
         </Modal.Footer>
-      </Form>
+      </form>
     </Modal>
   );
 };
 
-export default AddStaffModal;
+export default UpdateStaffModal;

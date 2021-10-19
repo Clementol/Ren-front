@@ -1,6 +1,4 @@
-.table-responsive {
-    /* z-index: 10 !important; */
-}
+
 @media screen and (max-width: 748px) {
     .action {
         margin-top: 2rem;
